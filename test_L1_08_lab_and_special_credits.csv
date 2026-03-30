@@ -1,0 +1,10 @@
+student_id,course_code,course_title,credits,grade,semester,year,attempt
+20230008,CSE115L,Computer Programming I Lab,1.0,A,Fall,2023,1
+,CSE215L,Data Structures Lab,1.0,B+,Spring,2024,1
+,CSE225L,Algorithms Lab,1.0,C,Fall,2024,1
+,CSE231L,Database Systems Lab,1.0,D,Spring,2025,1
+,CSE311L,Software Engineering Lab,1.0,A-,Fall,2025,1
+,CSE331L,Computer Networks Lab,1.0,B,Spring,2026,1
+,CSE498R,Internship,0.0,A,Summer,2026,1
+,CSE499A,Capstone Design I,1.5,A,Fall,2026,1
+,CSE499B,Capstone Design II,1.5,B+,Spring,2027,1

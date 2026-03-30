@@ -1,0 +1,19 @@
+student_id,course_code,course_title,credits,grade,semester,year,attempt
+20232003,ENG103,English Composition II,3.0,D+,Fall,2023,1
+,ENG105,Professional Communication,3.0,D,Spring,2024,1
+,HIS103,World History,3.0,C-,Fall,2024,1
+,PHI101,Introduction to Philosophy,3.0,D+,Spring,2025,1
+,ENV203,Environmental Science,3.0,C-,Fall,2025,1
+,ECO101,Principles of Economics I,3.0,D,Spring,2026,1
+,ECO104,Principles of Economics II,3.0,C-,Fall,2026,1
+,MIS107,Information Systems,3.0,D+,Spring,2027,1
+,BUS251,Business Statistics,3.0,C-,Fall,2027,1
+,BUS172,Business Communication,3.0,D,Spring,2028,1
+,BUS173,Business Law,3.0,W,Fall,2028,1
+,BUS135,Introduction to Business,3.0,D+,Spring,2029,1
+,ACT201,Financial Accounting,3.0,F,Fall,2029,1
+,ACT201,Financial Accounting,3.0,D,Spring,2030,2
+,ACT202,Managerial Accounting,3.0,C-,Fall,2030,1
+,FIN254,Financial Management,3.0,D+,Spring,2031,1
+,LAW200,Business Law II,3.0,C-,Fall,2031,1
+,MKT202,Principles of Marketing,3.0,D,Spring,2032,1

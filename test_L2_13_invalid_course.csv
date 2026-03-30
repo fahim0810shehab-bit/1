@@ -1,0 +1,6 @@
+student_id,course_code,course_title,credits,grade,semester,year,attempt
+20231001,ENG102,Introduction to Composition,3.0,A,Fall,2023,1
+,MAT116,Pre-Calculus,3.0,B+,Fall,2023,1
+,CSE115,Computer Programming I,3.0,A-,Spring,2024,1
+,UNKNOWN101,External Course,3.0,A,Spring,2024,1
+,CSE173,Discrete Mathematics,3.0,B,Fall,2024,1

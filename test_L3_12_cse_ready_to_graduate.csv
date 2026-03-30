@@ -1,0 +1,55 @@
+student_id,course_code,course_title,credits,grade,semester,year,attempt
+20231010,ENG102,Introduction to Composition,3.0,A,Fall,2023,1
+,ENG103,English Composition II,3.0,A-,Spring,2024,1
+,ENG111,Critical Reading,3.0,B+,Fall,2024,1
+,BEN205,Engineering Ethics,3.0,A,Spring,2025,1
+,PHI104,Introduction to Ethics,3.0,B,Fall,2025,1
+,HIS102,History of Bangladesh,3.0,A-,Spring,2026,1
+,HIS103,World History,3.0,B+,Fall,2026,1
+,SC0101,NSU Colloquium,3.0,A,Spring,2027,1
+,POL101,Political Science,3.0,B+,Fall,2027,1
+,BIO103,Environmental Biology,3.0,A,Spring,2028,1
+,SOC101,Introduction to Sociology,3.0,A,Fall,2028,1
+,MAT116,Pre-Calculus,3.0,A-,Fall,2023,1
+,MAT120,Calculus I,3.0,B+,Spring,2024,1
+,MAT130,Calculus II,3.0,A,Fall,2024,1
+,MAT250,Linear Algebra,3.0,B+,Spring,2025,1
+,MAT350,Differential Equations,3.0,A,Fall,2025,1
+,MAT361,Numerical Methods,3.0,B,Spring,2026,1
+,PHY107,Physics I,3.0,A-,Fall,2024,1
+,PHY107L,Physics Lab I,1.0,B+,Fall,2024,1
+,PHY108,Physics II,3.0,A,Spring,2025,1
+,PHY108L,Physics Lab II,1.0,B,Spring,2025,1
+,CHE101,Chemistry,3.0,A,Fall,2025,1
+,CHE101L,Chemistry Lab,1.0,A-,Fall,2025,1
+,CSE115,Computer Programming I,3.0,A,Spring,2024,1
+,CSE115L,Programming Lab,1.0,A-,Spring,2024,1
+,CEE110,Engineering Mechanics,3.0,B+,Fall,2024,1
+,CSE173,Discrete Mathematics,3.0,A,Fall,2024,1
+,CSE215,Data Structures,3.0,A-,Spring,2025,1
+,CSE215L,Data Structures Lab,1.0,B+,Spring,2025,1
+,CSE225,Algorithms,3.0,A,Fall,2025,1
+,CSE225L,Algorithms Lab,1.0,A-,Fall,2025,1
+,CSE231,Database Systems,3.0,B+,Spring,2026,1
+,CSE231L,Database Lab,1.0,B,Spring,2026,1
+,CSE311,Software Engineering,3.0,A,Fall,2026,1
+,CSE311L,Software Engineering Lab,1.0,A-,Fall,2026,1
+,CSE323,Computer Architecture,3.0,B+,Spring,2027,1
+,CSE327,Operating Systems,3.0,A,Fall,2027,1
+,CSE331,Computer Networks,3.0,A-,Spring,2028,1
+,CSE331L,Networks Lab,1.0,B+,Spring,2028,1
+,CSE332,Distributed Systems,3.0,A,Fall,2028,1
+,CSE373,Theory of Computation,3.0,B+,Spring,2029,1
+,CSE425,Senior Project,3.0,A,Fall,2029,1
+,EEE141,Digital Logic Design,3.0,B,Spring,2026,1
+,EEE141L,Digital Logic Lab,1.0,B+,Spring,2026,1
+,EEE111,Electrical Circuits,3.0,A-,Fall,2026,1
+,EEE111L,Electrical Circuits Lab,1.0,A,Fall,2026,1
+,CSE299,Pre-Capstone,1.0,A,Spring,2027,1
+,CSE499A,Capstone Design I,1.5,A,Spring,2030,1
+,CSE499B,Capstone Design II,1.5,A-,Fall,2030,1
+,CSE498R,Internship,0.0,A,Summer,2030,1
+,CSE422,Machine Learning,3.0,A,Fall,2029,1
+,CSE423,Artificial Intelligence,3.0,A-,Spring,2030,1
+,CSE427,Data Science,3.0,B+,Fall,2030,1
+,MIS107,Introduction to Information Systems,3.0,A,Spring,2029,1

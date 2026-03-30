@@ -1,0 +1,16 @@
+student_id,course_code,course_title,credits,grade,semester,year,attempt
+20230001,CSE115,Computer Programming I,3.0,A,Fall,2023,1
+,CSE115L,Computer Programming I Lab,1.0,A-,Fall,2023,1
+,MAT116,Pre-Calculus,3.0,B+,Fall,2023,1
+,ENG102,Introduction to Composition,3.0,B,Fall,2023,1
+,MAT120,Calculus I,3.0,B-,Spring,2024,1
+,PHY107,Physics I,3.0,C+,Spring,2024,1
+,PHY107L,Physics I Lab,1.0,C,Spring,2024,1
+,CSE173,Discrete Mathematics,3.0,C-,Fall,2024,1
+,CSE215,Data Structures,3.0,D+,Fall,2024,1
+,CSE215L,Data Structures Lab,1.0,D,Fall,2024,1
+,MAT130,Calculus II,3.0,F,Spring,2025,1
+,MAT130,Calculus II,3.0,W,Spring,2025,1
+,PHY108,Physics II,3.0,I,Spring,2025,1
+,CSE225,Algorithms,3.0,AU,Spring,2025,1
+,CSE498R,Internship,0.0,A,Summer,2025,1

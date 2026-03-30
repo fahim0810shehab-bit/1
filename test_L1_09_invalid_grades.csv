@@ -1,0 +1,7 @@
+student_id,course_code,course_title,credits,grade,semester,year,attempt
+20230009,CSE115,Computer Programming I,3.0,X,Fall,2023,1
+,MAT116,Pre-Calculus,3.0,P,Spring,2024,1
+,ENG102,Introduction to Composition,3.0,Z,Fall,2024,1
+,MAT120,Calculus I,3.0,,Spring,2025,1
+,PHY107,Physics I,3.0,AB,Fall,2025,1
+,CSE173,Discrete Mathematics,3.0,NR,Spring,2026,1

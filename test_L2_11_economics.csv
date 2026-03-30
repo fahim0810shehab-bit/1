@@ -1,0 +1,14 @@
+student_id,course_code,course_title,credits,grade,semester,year,attempt
+20233001,ENG102,Introduction to Composition,3.0,A,Fall,2023,1
+,MAT112,College Algebra,3.0,B+,Fall,2023,1
+,ECO101,Principles of Economics I,3.0,A-,Spring,2024,1
+,ECO104,Principles of Economics II,3.0,B+,Spring,2024,1
+,MAT116,Pre-Calculus,3.0,B,Fall,2024,1
+,STA101,Statistics I,3.0,A,Spring,2025,1
+,STA102,Statistics II,3.0,A-,Fall,2025,1
+,ECO201,Microeconomics,3.0,B+,Spring,2026,1
+,ECO202,Macroeconomics,3.0,A,Fall,2026,1
+,ECO301,Econometrics I,3.0,B,Spring,2027,1
+,ECO302,Econometrics II,3.0,A-,Fall,2027,1
+,FIN254,Principles of Finance,3.0,B+,Spring,2028,1
+,MKT202,Principles of Marketing,3.0,A,Fall,2028,1

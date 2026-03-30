@@ -1,0 +1,5 @@
+student_id,course_code,course_title,credits,grade,semester,year,attempt
+20230012,CSE498R,Internship,0.0,A,Summer,2023,1
+,CSE498R,Internship,0.0,B+,Summer,2024,1
+,CSE498R,Internship,0.0,A-,Summer,2025,1
+,CSE498R,Internship,0.0,B,Summer,2026,1

@@ -1,0 +1,13 @@
+student_id,course_code,course_title,credits,grade,semester,year,attempt
+20231006,ENG102,Introduction to Composition,3.0,B,Fall,2023,1
+,MAT116,Pre-Calculus,3.0,A,Fall,2023,1
+,CSE115,Computer Programming I,3.0,B+,Spring,2024,1
+,CSE115L,Computer Programming I Lab,1.0,A-,Spring,2024,1
+,MAT120,Calculus I,3.0,B,Fall,2024,1
+,CSE173,Discrete Mathematics,3.0,A-,Spring,2025,1
+,PHY107,Physics I,3.0,B+,Fall,2025,1
+,CSE215,Data Structures,3.0,A,Spring,2026,1
+,CSE225,Algorithms,3.0,B+,Fall,2026,1
+,CSE231,Database Systems,3.0,A-,Spring,2027,1
+,CSE499A,Capstone Design I,1.5,A,Fall,2027,1
+,CSE499B,Capstone Design II,1.5,B+,Spring,2028,1

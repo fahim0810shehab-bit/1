@@ -1,0 +1,28 @@
+student_id,course_code,course_title,credits,grade,semester,year,attempt
+20231001,ENG102,Introduction to Composition,3.0,A,Fall,2023,1
+,MAT116,Pre-Calculus,3.0,A-,Fall,2023,1
+,CSE115,Computer Programming I,3.0,A,Fall,2023,1
+,CSE115L,Computer Programming I Lab,1.0,A-,Fall,2023,1
+,MAT120,Calculus I,3.0,B+,Fall,2023,1
+,CSE173,Discrete Mathematics,3.0,A,Spring,2024,1
+,PHY107,Physics I,3.0,B+,Spring,2024,1
+,PHY107L,Physics I Lab,1.0,A,Spring,2024,1
+,MAT130,Calculus II,3.0,B+,Fall,2024,1
+,CSE215,Programming Language II,3.0,A,Fall,2024,1
+,CSE215L,Programming Language II Lab,1.0,A-,Fall,2024,1
+,CSE225,Data Structures,3.0,A,Spring,2025,1
+,CSE225L,Data Structures Lab,1.0,B+,Spring,2025,1
+,CSE231,Digital Logic,3.0,A,Fall,2025,1
+,CSE231L,Digital Logic Lab,1.0,A,Fall,2025,1
+,CSE311,Database Management System,3.0,A-,Spring,2026,1
+,CSE311L,Database Management Lab,1.0,B+,Spring,2026,1
+,CSE323,Operating Systems,3.0,A,Fall,2026,1
+,CSE327,Software Engineering,3.0,B+,Fall,2026,1
+,CSE331,Microprocessor,3.0,A,Spring,2027,1
+,CSE331L,Microprocessor Lab,1.0,A-,Spring,2027,1
+,CSE332,Computer Architecture,3.0,B+,Fall,2027,1
+,CSE373,Algorithms,3.0,A,Spring,2028,1
+,CSE299,Junior Design,1.0,A,Fall,2028,1
+,CSE498R,Internship,0.0,A,Summer,2029,1
+,CSE499A,Senior Design I,1.5,A,Fall,2029,1
+,CSE499B,Senior Design II,1.5,A,Fall,2030,1
