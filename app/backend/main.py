@@ -342,3 +342,176 @@ def get_catalog():
         "courses": CATALOG["courses"],
         "programs": {k: {"name": v["name"], "total_credits": v["total_credits"]} for k, v in CATALOG["programs"].items()}
     }
+
+
+@app.get("/export/pdf/{transcript_id}")
+def export_pdf(transcript_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    from fastapi.responses import StreamingResponse
+    import io
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.units import mm
+    from reportlab.lib import colors
+    from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, HRFlowable
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+
+    transcript = db.query(Transcript).filter(
+        Transcript.id == transcript_id,
+        Transcript.user_id == user.id
+    ).first()
+    if not transcript:
+        raise HTTPException(status_code=404, detail="Transcript not found")
+
+    courses = db.query(CourseRecord).filter(CourseRecord.transcript_id == transcript_id).all()
+    audit = db.query(AuditResult).filter(AuditResult.transcript_id == transcript_id).first()
+
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=A4, topMargin=20*mm, bottomMargin=20*mm, leftMargin=20*mm, rightMargin=20*mm)
+    styles = getSampleStyleSheet()
+
+    title_style = ParagraphStyle('Title2', parent=styles['Title'], fontSize=18, spaceAfter=6, textColor=colors.HexColor('#1a365d'))
+    heading_style = ParagraphStyle('Heading2', parent=styles['Heading2'], fontSize=13, spaceAfter=4, spaceBefore=12, textColor=colors.HexColor('#2b6cb0'))
+    normal_style = ParagraphStyle('Body2', parent=styles['Normal'], fontSize=10, spaceAfter=3)
+    small_style = ParagraphStyle('Small2', parent=styles['Normal'], fontSize=8, textColor=colors.grey)
+
+    elements = []
+
+    elements.append(Paragraph("NSU Academic Audit Report", title_style))
+    elements.append(Paragraph(f"Generated: {datetime.utcnow().strftime('%B %d, %Y')} | Confidential Student Record", small_style))
+    elements.append(Spacer(1, 8*mm))
+    elements.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor('#1a365d')))
+    elements.append(Spacer(1, 4*mm))
+
+    if audit:
+        elements.append(Paragraph("Student Information", heading_style))
+        info_data = [
+            ["Email:", user.email or "N/A"],
+            ["Program:", audit.program or "N/A"],
+            ["Major:", audit.major or "Not Detected"],
+            ["CGPA:", f"{audit.cgpa:.2f}"],
+            ["Academic Standing:", audit.academic_standing or "N/A"],
+        ]
+        info_table = Table(info_data, colWidths=[50*mm, 100*mm])
+        info_table.setStyle(TableStyle([
+            ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, -1), 10),
+            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+        ]))
+        elements.append(info_table)
+        elements.append(Spacer(1, 4*mm))
+
+        elements.append(Paragraph("Credit Summary", heading_style))
+        credit_data = [
+            ["Credits Earned:", f"{audit.credits_earned:.1f}"],
+            ["Credits Attempted:", f"{audit.credits_attempted:.1f}"],
+            ["Failed Credits:", f"{audit.failed_credits:.1f}"],
+            ["Withdrawn Credits:", f"{audit.withdrawn_credits:.1f}"],
+            ["Total Required:", f"{audit.total_required}"],
+            ["Credits Remaining:", f"{audit.credits_remaining:.1f}"],
+            ["Progress:", f"{audit.progress_percent:.1f}%"],
+            ["Est. Semesters Left:", f"{audit.estimated_semesters}"],
+        ]
+        credit_table = Table(credit_data, colWidths=[50*mm, 100*mm])
+        credit_table.setStyle(TableStyle([
+            ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, -1), 10),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+        ]))
+        elements.append(credit_table)
+        elements.append(Spacer(1, 4*mm))
+
+        if audit.category_progress:
+            elements.append(Paragraph("Program Requirement Progress", heading_style))
+            cat_data = [["Category", "Completed", "Required", "Percent"]]
+            for cat_name, cat_info in audit.category_progress.items():
+                cat_data.append([
+                    cat_name,
+                    f"{cat_info.get('completed', 0):.1f}",
+                    f"{cat_info.get('required', 0)}",
+                    f"{cat_info.get('percent', 0):.1f}%"
+                ])
+            cat_table = Table(cat_data, colWidths=[55*mm, 30*mm, 30*mm, 30*mm])
+            cat_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1a365d')),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, -1), 9),
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f0f4f8')]),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+                ('TOPPADDING', (0, 0), (-1, -1), 4),
+            ]))
+            elements.append(cat_table)
+            elements.append(Spacer(1, 4*mm))
+
+        if audit.waiver_status:
+            elements.append(Paragraph("Waiver Status", heading_style))
+            waiver_data = [["Course", "Status"]]
+            for wc, ws in audit.waiver_status.items():
+                waiver_data.append([wc, ws])
+            waiver_table = Table(waiver_data, colWidths=[60*mm, 90*mm])
+            waiver_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2b6cb0')),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, -1), 9),
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+            ]))
+            elements.append(waiver_table)
+            elements.append(Spacer(1, 4*mm))
+
+    if courses:
+        elements.append(Spacer(1, 4*mm))
+        elements.append(Paragraph("Transcript Courses", heading_style))
+        course_data = [["Code", "Title", "Credits", "Grade", "Valid"]]
+        for c in courses:
+            course_data.append([
+                c.course_code,
+                c.course_title or "N/A",
+                f"{c.credits:.1f}",
+                c.grade or "N/A",
+                "Yes" if c.is_valid_nsu else "No"
+            ])
+        course_table = Table(course_data, colWidths=[30*mm, 60*mm, 20*mm, 20*mm, 20*mm])
+        course_table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1a365d')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, -1), 8),
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+            ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f8f9fa')]),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+            ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ]))
+        elements.append(course_table)
+
+    if audit and audit.missing_courses:
+        elements.append(Spacer(1, 4*mm))
+        elements.append(Paragraph(f"Missing Required Courses ({len(audit.missing_courses)})", heading_style))
+        for i in range(0, len(audit.missing_courses), 3):
+            row = audit.missing_courses[i:i+3]
+            while len(row) < 3:
+                row.append("")
+            elements.append(Paragraph("  |  ".join(row), normal_style))
+
+    if audit and audit.invalid_courses:
+        elements.append(Spacer(1, 4*mm))
+        elements.append(Paragraph("Invalid Courses Detected", heading_style))
+        for ic in audit.invalid_courses:
+            if isinstance(ic, dict):
+                elements.append(Paragraph(f"  - {ic.get('course_code', 'Unknown')} ({ic.get('course_title', '')}) - {ic.get('credits', 0):.1f} cr - Grade: {ic.get('grade', 'N/A')}", normal_style))
+
+    elements.append(Spacer(1, 10*mm))
+    elements.append(HRFlowable(width="100%", thickness=0.5, color=colors.grey))
+    elements.append(Paragraph("This report was generated by NSU Academic Audit System. For official records, please contact the university registrar.", small_style))
+
+    doc.build(elements)
+    buffer.seek(0)
+
+    filename = f"NSU_Audit_Report_{transcript_id}.pdf"
+    return StreamingResponse(
+        buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )

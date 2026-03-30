@@ -43,14 +43,26 @@ function App() {
     }
   }, [user, token]);
 
-  const handleLogin = useCallback((credentialResponse) => {
-    const data = JSON.parse(atob(credentialResponse.credential.split('.')[1]));
-    api('/auth/google', { method: 'POST', body: JSON.stringify({ email: data.email, name: data.name, picture: data.picture }) })
-      .then(res => {
-        localStorage.setItem('nsu_token', res.token);
-        setToken(res.token);
-        setUser(res.user);
-      }).catch(err => alert('Login failed: ' + err.message));
+  const handleLogin = useCallback(async (credentialResponse) => {
+    try {
+      const payload = JSON.parse(atob(credentialResponse.credential.split('.')[1]));
+      const res = await fetch(`${API_URL}/auth/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: payload.email, name: payload.name, picture: payload.picture || '' })
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || 'Login failed');
+      }
+      const data = await res.json();
+      localStorage.setItem('nsu_token', data.token);
+      setToken(data.token);
+      setUser(data.user);
+    } catch (err) {
+      console.error('Login error:', err);
+      alert('Login failed: ' + err.message);
+    }
   }, []);
 
   const handleLogout = () => { localStorage.removeItem('nsu_token'); setToken(null); setUser(null); setView('dashboard'); };
@@ -88,18 +100,28 @@ function App() {
     } catch (err) { alert('Failed to delete'); }
   };
 
-  const exportPDF = () => {
-    if (!reportRef.current) return;
-    import('html2pdf.js').then(html2pdf => {
-      const opt = {
-        margin: [10, 10, 10, 10],
-        filename: `NSU_Audit_Report_${new Date().toISOString().split('T')[0]}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-      html2pdf.default().set(opt).from(reportRef.current).save();
-    });
+  const exportPDF = async () => {
+    if (!selectedTranscript || !selectedTranscript.transcript_id) {
+      alert('No transcript selected');
+      return;
+    }
+    try {
+      const res = await fetch(`${API_URL}/export/pdf/${selectedTranscript.transcript_id}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (!res.ok) throw new Error('Export failed');
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `NSU_Audit_Report_${selectedTranscript.transcript_id}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      alert('Failed to export PDF: ' + err.message);
+    }
   };
 
   if (loading) return <LoadingScreen />;
